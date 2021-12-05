@@ -4,7 +4,7 @@ public class Bunka {
     private Obdlznik bunka;
     private int mriezkaRiadok;
     private int mriezkaStlpec;
-    private boolean zaplnene;
+    private boolean zaplnena;
 
     public Bunka(int polohaX, int polohaY, int velkost) {
         this.bunka = new Obdlznik();
@@ -12,7 +12,7 @@ public class Bunka {
         this.bunka.zmenStrany(velkost, velkost);
         this.bunka.zmenFarbu("black");
         this.bunka.zobraz();
-        this.zaplnene = false;
+        this.zaplnena = false;
     }
 
     public void setMriezkaRiadok(int riadok) {
@@ -32,15 +32,11 @@ public class Bunka {
     }
 
     public boolean jeObsadena() {
-        return this.zaplnene;
+        return this.zaplnena;
     }
 
     public void zmenFarbu(String farba) {
-        if (farba.equals("black")) {
-            this.zaplnene = false;
-        } else {
-            this.zaplnene = true;
-        }
+        this.zaplnena = !farba.equals("black");
         this.bunka.zmenFarbu(farba);
     }
 }

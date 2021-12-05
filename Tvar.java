@@ -20,32 +20,42 @@ public class Tvar {
         this.vygenerujTvar();
     }
 
+    private boolean jeVMriezke(int surX, int surY) {
+        if (surX < 0 || surX >= this.mriezka.getVyska()) {
+            return false;
+        }
+        if (surY < 0 || surY >= this.mriezka.getSirka()) {
+            return false;
+        }
+        return true;
+    }
+
     public boolean posunTvar(int deltaX, int deltaY) {
         ArrayList<Bunka> posunute = new ArrayList<>();
 
         for (Bunka aktualna : this.obsadeneBunky) {
             int novaSurX = aktualna.getMriezkaRiadok() + deltaX;
             int novaSurY = aktualna.getMriezkaStlpec() + deltaY;
-            if (novaSurX >= 0 && novaSurX < this.mriezka.getVyska()
-                    && novaSurY >= 0 && novaSurY < this.mriezka.getSirka()) {
-                posunute.add(this.mriezka.getBunka(novaSurX, novaSurY));
+            if (this.jeVMriezke(novaSurX, novaSurY)) {
+                Bunka novaBunka = this.mriezka.getBunka(novaSurX, novaSurY);
+                if (this.obsadeneBunky.contains(novaBunka) || !novaBunka.jeObsadena()) {
+                    posunute.add(this.mriezka.getBunka(novaSurX, novaSurY));
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
             }
-        }
-
-        if (posunute.size() != this.obsadeneBunky.size()) {
-            return false;
         }
 
         for (Bunka aktualna : this.obsadeneBunky) {
             aktualna.zmenFarbu("black");
         }
-
         for (Bunka aktualna : posunute) {
             aktualna.zmenFarbu(this.farba);
         }
 
         this.obsadeneBunky = posunute;
-
         return true;
     }
 

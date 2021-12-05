@@ -6,39 +6,45 @@ public class HraTetris {
     private Mriezka mriezka;
     private Manazer manazer;
     private Random generator;
-    private Tvar tvar;
+    private Tvar aktualnyTvar;
     private int pocet;
 
     public HraTetris() {
         this.mriezka = new Mriezka(20, 10);
         this.manazer = new Manazer();
         this.generator = new Random();
-        this.tvar = new Tvar(this.mriezka, this.generator, 0, 0);
+        this.aktualnyTvar = null;
         this.pocet = 0;
     }
 
     public void start() {
         this.manazer.spravujObjekt(this);
+        this.aktualnyTvar = new Tvar(this.mriezka, this.generator, 0, 4);
     }
 
-    public void aktivuj() {
-        //pocet++;
-        this.tvar = new Tvar(this.mriezka, this.generator, 0, 0);
+    public void tik() {
+        this.pocet++;
+        if (this.pocet == 4) {
+            this.pocet = 0;
+            if (!this.aktualnyTvar.posunTvar(1, 0)) {
+                this.aktualnyTvar = new Tvar(this.mriezka, this.generator, 0, 4);
+            }
+        }
     }
 
     public void posunHore() {
-        this.tvar.posunTvar(-1, 0);
+        this.aktualnyTvar.posunTvar(-1, 0);
     }
 
     public void posunDole() {
-        this.tvar.posunTvar(1, 0);
+        this.aktualnyTvar.posunTvar(1, 0);
     }
 
     public void posunVlavo() {
-        this.tvar.posunTvar(0, -1);
+        this.aktualnyTvar.posunTvar(0, -1);
     }
 
     public void posunVpravo() {
-        this.tvar.posunTvar(0, 1);
+        this.aktualnyTvar.posunTvar(0, 1);
     }
 }

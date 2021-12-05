@@ -11,18 +11,18 @@ public class Mriezka {
         this.sirka = sirka;
 
         int surX;
-        int surY = 10;
-        int velkost = 20;
+        int surY = 5;
+        int velkost = 25;
 
         for (int riadok = 0; riadok < vyska; riadok++) {
-            surX = 10;
+            surX = 5;
             for (int stlpec = 0; stlpec < sirka; stlpec++) {
                 this.mriezka[riadok][stlpec] = new Bunka(surX, surY, velkost);
                 this.mriezka[riadok][stlpec].setMriezkaRiadok(riadok);
                 this.mriezka[riadok][stlpec].setMriezkaStlpec(stlpec);
-                surX += velkost + 2;
+                surX += velkost + 1;
             }
-            surY += velkost + 2;
+            surY += velkost + 1;
         }
     }
 
