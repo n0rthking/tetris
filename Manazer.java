@@ -1,3 +1,5 @@
+package fun.n0rthking;
+
 import java.util.ArrayList;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

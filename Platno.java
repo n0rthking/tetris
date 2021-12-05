@@ -1,3 +1,5 @@
+package fun.n0rthking;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -40,7 +42,7 @@ public class Platno {
      */
     public static Platno dajPlatno() {
         if (Platno.platnoSingleton == null) {
-            Platno.platnoSingleton = new Platno("2048", 250, 250, 
+            Platno.platnoSingleton = new Platno("Tetris", 250, 500,
                                          Color.white);
         }
         Platno.platnoSingleton.setVisible(true);
@@ -161,6 +163,10 @@ public class Platno {
             this.graphic.setColor(Color.magenta);
         } else if (farba.equals("white")) {
             this.graphic.setColor(Color.white);
+        } else if (farba.equals("orange")) {
+            this.graphic.setColor(Color.orange);
+        } else if (farba.equals("cyan")) {
+            this.graphic.setColor(Color.cyan);
         } else {
             this.graphic.setColor(Color.black);
         }

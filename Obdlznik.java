@@ -1,3 +1,5 @@
+package fun.n0rthking;
+
 import java.awt.Rectangle;
 
 /**
