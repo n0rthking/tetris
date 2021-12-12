@@ -39,7 +39,7 @@ public class Tvar {
             if (this.jeVMriezke(novaSurX, novaSurY)) {
                 Bunka novaBunka = this.mriezka.getBunka(novaSurX, novaSurY);
                 if (this.obsadeneBunky.contains(novaBunka) || !novaBunka.jeObsadena()) {
-                    posunute.add(this.mriezka.getBunka(novaSurX, novaSurY));
+                    posunute.add(novaBunka);
                 } else {
                     return false;
                 }
@@ -124,27 +124,27 @@ public class Tvar {
     }
 
     private void vygenerujTvar() {
-        switch (generator.nextInt(7)) {
+        switch (this.generator.nextInt(7)) {
             case 0:
-                nastavTvar1();
+                this.nastavTvar1();
                 break;
             case 1:
-                nastavTvar2();
+                this.nastavTvar2();
                 break;
             case 2:
-                nastavTvar3();
+                this.nastavTvar3();
                 break;
             case 3:
-                nastavTvar4();
+                this.nastavTvar4();
                 break;
             case 4:
-                nastavTvar5();
+                this.nastavTvar5();
                 break;
             case 5:
-                nastavTvar6();
+                this.nastavTvar6();
                 break;
             case 6:
-                nastavTvar7();
+                this.nastavTvar7();
                 break;
         }
     }
