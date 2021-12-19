@@ -30,6 +30,36 @@ public class Tvar {
         return true;
     }
 
+    public boolean otocTvar() {
+        ArrayList<Bunka> otocene = new ArrayList<>();
+
+        for (Bunka aktualna : this.obsadeneBunky) {
+            int novaSurX = this.pocSurY - aktualna.getMriezkaStlpec() + this.pocSurX;
+            int novaSurY = aktualna.getMriezkaRiadok() - this.pocSurX + this.pocSurY;
+            if (this.jeVMriezke(novaSurX, novaSurY)) {
+                Bunka novaBunka = this.mriezka.getBunka(novaSurX, novaSurY);
+                if (this.obsadeneBunky.contains(novaBunka) || !novaBunka.jeObsadena()) {
+                    otocene.add(novaBunka);
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        for (Bunka aktualna : this.obsadeneBunky) {
+            aktualna.zmenFarbu("black");
+        }
+
+        for (Bunka aktualna : otocene) {
+            aktualna.zmenFarbu(this.farba);
+        }
+
+        this.obsadeneBunky = otocene;
+        return true;
+    }
+
     public boolean posunTvar(int deltaX, int deltaY) {
         ArrayList<Bunka> posunute = new ArrayList<>();
 
@@ -47,6 +77,9 @@ public class Tvar {
                 return false;
             }
         }
+
+        this.pocSurX += deltaX;
+        this.pocSurY += deltaY;
 
         for (Bunka aktualna : this.obsadeneBunky) {
             aktualna.zmenFarbu("black");

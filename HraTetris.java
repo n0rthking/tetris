@@ -24,7 +24,7 @@ public class HraTetris {
 
     public void tik() {
         this.pocet++;
-        if (this.pocet == 4) {
+        if (this.pocet == 3) {
             this.pocet = 0;
             if (!this.aktualnyTvar.posunTvar(1, 0)) {
                 this.aktualnyTvar = new Tvar(this.mriezka, this.generator, 0, 4);
@@ -33,7 +33,7 @@ public class HraTetris {
     }
 
     public void posunHore() {
-        this.aktualnyTvar.posunTvar(-1, 0);
+        this.aktualnyTvar.otocTvar();
     }
 
     public void posunDole() {
