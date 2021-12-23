@@ -51,7 +51,6 @@ public class Tvar {
         for (Bunka aktualna : this.obsadeneBunky) {
             aktualna.zmenFarbu("black");
         }
-
         for (Bunka aktualna : otocene) {
             aktualna.zmenFarbu(this.farba);
         }

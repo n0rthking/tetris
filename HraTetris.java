@@ -24,9 +24,10 @@ public class HraTetris {
 
     public void tik() {
         this.pocet++;
-        if (this.pocet == 3) {
+        if (this.pocet == 5) {
             this.pocet = 0;
             if (!this.aktualnyTvar.posunTvar(1, 0)) {
+                this.mriezka.odstranZaplneneRiadky();
                 this.aktualnyTvar = new Tvar(this.mriezka, this.generator, 0, 4);
             }
         }
