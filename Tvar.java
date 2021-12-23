@@ -34,8 +34,14 @@ public class Tvar {
         ArrayList<Bunka> otocene = new ArrayList<>();
 
         for (Bunka aktualna : this.obsadeneBunky) {
-            int novaSurX = this.pocSurY - aktualna.getMriezkaStlpec() + this.pocSurX;
-            int novaSurY = aktualna.getMriezkaRiadok() - this.pocSurX + this.pocSurY;
+            int novaSurX = this.pocSurY - aktualna.getMriezkaStlpec() + this.pocSurX + 1;
+            int novaSurY = aktualna.getMriezkaRiadok() - this.pocSurX + this.pocSurY - 1;
+            if (this.farba.equals("blue")) {
+                novaSurX += 1;
+                novaSurY += 1;
+            } else if (this.farba.equals("cyan")) {
+                novaSurX += 1;
+            }
             if (this.jeVMriezke(novaSurX, novaSurY)) {
                 Bunka novaBunka = this.mriezka.getBunka(novaSurX, novaSurY);
                 if (this.obsadeneBunky.contains(novaBunka) || !novaBunka.jeObsadena()) {
