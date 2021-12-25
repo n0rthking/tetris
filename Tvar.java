@@ -10,6 +10,7 @@ public class Tvar {
     private String farba;
     private int pocSurX;
     private int pocSurY;
+    private boolean stav;
 
     public Tvar(Mriezka mriezka, Random generator, int pocSurX, int pocSurY) {
         this.obsadeneBunky = new ArrayList<>();
@@ -17,7 +18,11 @@ public class Tvar {
         this.generator = generator;
         this.pocSurX = pocSurX;
         this.pocSurY = pocSurY;
-        this.vygenerujTvar();
+        this.stav = this.vygenerujTvar();
+    }
+
+    public boolean getStav() {
+        return this.stav;
     }
 
     private boolean jeVMriezke(int surX, int surY) {
@@ -30,7 +35,7 @@ public class Tvar {
         return true;
     }
 
-    public boolean otocTvar() {
+    public void otocTvar() {
         ArrayList<Bunka> otocene = new ArrayList<>();
 
         for (Bunka aktualna : this.obsadeneBunky) {
@@ -47,10 +52,10 @@ public class Tvar {
                 if (this.obsadeneBunky.contains(novaBunka) || !novaBunka.jeObsadena()) {
                     otocene.add(novaBunka);
                 } else {
-                    return false;
+                    return;
                 }
             } else {
-                return false;
+                return;
             }
         }
 
@@ -62,7 +67,6 @@ public class Tvar {
         }
 
         this.obsadeneBunky = otocene;
-        return true;
     }
 
     public boolean posunTvar(int deltaX, int deltaY) {
@@ -97,93 +101,115 @@ public class Tvar {
         return true;
     }
 
-    private void zafarbiBunku(int posunX, int posunY) {
+    private boolean zafarbiBunku(int posunX, int posunY) {
+        if (this.mriezka.getBunka(this.pocSurX + posunX, this.pocSurY + posunY).jeObsadena()) {
+            return false;
+        }
         this.mriezka.setBunka(this.pocSurX + posunX, this.pocSurY + posunY, this.farba);
         this.obsadeneBunky.add(this.mriezka.getBunka(this.pocSurX + posunX, this.pocSurY + posunY));
+        return true;
     }
 
-    private void nastavTvar1() {
+    private boolean nastavTvar1() {
         this.farba = "cyan";
         for (int i = 0; i < 4; i++) {
-            this.zafarbiBunku(i, 0);
+            if (!this.zafarbiBunku(i, 0)) {
+                return false;
+            }
         }
+        return true;
     }
 
-    private void nastavTvar2() {
+    private boolean nastavTvar2() {
         this.farba = "magenta";
         for (int i = 0; i < 3; i++) {
-            this.zafarbiBunku(i, 0);
+            if (!this.zafarbiBunku(i, 0)) {
+                return false;
+            }
         }
-        this.zafarbiBunku(1, 1);
+        return this.zafarbiBunku(1, 1);
     }
 
-    private void nastavTvar3() {
+    private boolean nastavTvar3() {
         this.farba = "yellow";
         for (int i = 0; i < 2; i++) {
-            this.zafarbiBunku(i, 0);
-            this.zafarbiBunku(i, 1);
+            if (!this.zafarbiBunku(i, 0)) {
+                return false;
+            }
+            if (!this.zafarbiBunku(i, 1)) {
+                return false;
+            }
         }
+        return true;
     }
 
-    private void nastavTvar4() {
+    private boolean nastavTvar4() {
         this.farba = "orange";
         for (int i = 0; i < 3; i++) {
-            this.zafarbiBunku(i, 0);
+            if (!this.zafarbiBunku(i, 0)) {
+                return false;
+            }
         }
-        this.zafarbiBunku(2, 1);
+        return this.zafarbiBunku(2, 1);
     }
 
-    private void nastavTvar5() {
+    private boolean nastavTvar5() {
         this.farba = "blue";
         for (int i = 0; i < 3; i++) {
-            this.zafarbiBunku(i, 1);
+            if (!this.zafarbiBunku(i, 1)) {
+                return false;
+            }
         }
-        this.zafarbiBunku(2, 0);
+        return this.zafarbiBunku(2, 0);
     }
 
-    private void nastavTvar6() {
+    private boolean nastavTvar6() {
         this.farba = "green";
         for (int i = 0; i < 2; i++) {
-            this.zafarbiBunku(i, 0);
+            if (!this.zafarbiBunku(i, 0)) {
+                return false;
+            }
         }
         for (int i = 1; i < 3; i++) {
-            this.zafarbiBunku(i, 1);
+            if (!this.zafarbiBunku(i, 1)) {
+                return false;
+            }
         }
+        return true;
     }
 
-    private void nastavTvar7() {
+    private boolean nastavTvar7() {
         this.farba = "red";
         for (int i = 0; i < 2; i++) {
-            this.zafarbiBunku(i, 1);
+            if (!this.zafarbiBunku(i, 1)) {
+                return false;
+            }
         }
         for (int i = 1; i < 3; i++) {
-            this.zafarbiBunku(i, 0);
+            if (!this.zafarbiBunku(i, 0)) {
+                return false;
+            }
         }
+        return true;
     }
 
-    private void vygenerujTvar() {
+    private boolean vygenerujTvar() {
         switch (this.generator.nextInt(7)) {
             case 0:
-                this.nastavTvar1();
-                break;
+                return this.nastavTvar1();
             case 1:
-                this.nastavTvar2();
-                break;
+                return this.nastavTvar2();
             case 2:
-                this.nastavTvar3();
-                break;
+                return this.nastavTvar3();
             case 3:
-                this.nastavTvar4();
-                break;
+                return this.nastavTvar4();
             case 4:
-                this.nastavTvar5();
-                break;
+                return this.nastavTvar5();
             case 5:
-                this.nastavTvar6();
-                break;
+                return this.nastavTvar6();
             case 6:
-                this.nastavTvar7();
-                break;
+                return this.nastavTvar7();
         }
+        return false;
     }
 }
