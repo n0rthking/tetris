@@ -9,6 +9,7 @@ public class HraTetris {
     private Tvar aktualnyTvar;
     private int pocet;
     private boolean koniecHry;
+    private int skore;
 
     public HraTetris() {
         this.mriezka = new Mriezka(20, 10);
@@ -17,6 +18,7 @@ public class HraTetris {
         this.aktualnyTvar = null;
         this.pocet = 0;
         this.koniecHry = false;
+        this.skore = 0;
     }
 
     public void start() {
@@ -36,7 +38,22 @@ public class HraTetris {
             }
         }
         this.koniecHry = false;
+        this.skore = 0;
         this.aktualnyTvar = new Tvar(this.mriezka, this.generator, 0, 4);
+    }
+
+    private int vypocitajSkore(int pocetOdstranenych) {
+        switch (pocetOdstranenych) {
+            case 1:
+                return 40;
+            case 2:
+                return 100;
+            case 3:
+                return 300;
+            case 4:
+                return 1200;
+        }
+        return 0;
     }
 
     public void tik() {
@@ -47,14 +64,12 @@ public class HraTetris {
         if (this.pocet == 5) {
             this.pocet = 0;
             if (!this.aktualnyTvar.posunTvar(1, 0)) {
-                int pocet = this.mriezka.odstranZaplneneRiadky();
-                if (pocet > 0) {
-                    System.out.println("pocet odstranenych riadkov: " + pocet);
-                }
+                this.skore += this.vypocitajSkore(this.mriezka.odstranZaplneneRiadky());
                 this.aktualnyTvar = new Tvar(this.mriezka, this.generator, 0, 4);
                 if (!this.aktualnyTvar.getStav()) {
                     this.koniecHry = true;
                     System.out.println("koniec hry");
+                    System.out.println("skore " + this.skore);
                 }
             }
         }
