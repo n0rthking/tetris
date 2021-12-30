@@ -42,7 +42,7 @@ public class Platno {
      */
     public static Platno dajPlatno() {
         if (Platno.platnoSingleton == null) {
-            Platno.platnoSingleton = new Platno("Tetris", 300, 600,
+            Platno.platnoSingleton = new Platno("Tetris", 270, 620,
                                          Color.white);
         }
         Platno.platnoSingleton.setVisible(true);

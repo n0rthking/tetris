@@ -13,6 +13,7 @@ public class HraTetris {
     private int skore;
     private boolean pauza;
     private int rychlost;
+    private Displej displej;
 
     public HraTetris() {
         this.mriezka = new Mriezka(20, 10);
@@ -24,6 +25,7 @@ public class HraTetris {
         this.skore = 0;
         this.pauza = false;
         this.rychlost = 4;
+        this.displej = new Displej(50, 570);
     }
 
     public void start() {
@@ -41,6 +43,7 @@ public class HraTetris {
         }
         this.koniecHry = false;
         this.skore = 0;
+        this.displej.setHodnota(this.skore);
         this.aktualnyTvar = new Tvar(this.mriezka, this.generator, 0, 4);
     }
 
@@ -101,6 +104,7 @@ public class HraTetris {
             if (!this.aktualnyTvar.posunTvar(1, 0)) {
                 this.rychlost = 4;
                 this.skore += this.vypocitajSkore(this.mriezka.odstranZaplneneRiadky());
+                this.displej.setHodnota(this.skore);
                 this.aktualnyTvar = new Tvar(this.mriezka, this.generator, 0, 4);
                 if (!this.aktualnyTvar.getStav()) {
                     this.koniecHry = true;
