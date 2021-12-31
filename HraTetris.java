@@ -13,6 +13,7 @@ public class HraTetris {
     private int skore;
     private boolean pauza;
     private int rychlost;
+    private int predchadzajucaRychlost;
     private Displej displej;
 
     public HraTetris() {
@@ -24,7 +25,8 @@ public class HraTetris {
         this.koniecHry = false;
         this.skore = 0;
         this.pauza = false;
-        this.rychlost = 4;
+        this.rychlost = 5;
+        this.predchadzajucaRychlost = 5;
         this.displej = new Displej(50, 570);
     }
 
@@ -43,6 +45,8 @@ public class HraTetris {
         }
         this.koniecHry = false;
         this.skore = 0;
+        this.rychlost = 5;
+        this.predchadzajucaRychlost = 5;
         this.displej.setHodnota(this.skore);
         this.aktualnyTvar = new Tvar(this.mriezka, this.generator, 0, 4);
     }
@@ -94,6 +98,22 @@ public class HraTetris {
         }
     }
 
+    private void zvysRychlost() {
+        if (this.rychlost == 5 && this.skore >= 3000) {
+            this.rychlost = 4;
+            this.predchadzajucaRychlost = 4;
+        } else if (this.rychlost == 4 && this.skore >= 7000) {
+            this.rychlost = 3;
+            this.predchadzajucaRychlost = 3;
+        } else if (this.rychlost == 3 && this.skore >= 11000) {
+            this.rychlost = 2;
+            this.predchadzajucaRychlost = 2;
+        } else if (this.rychlost == 2 && this.skore >= 17000) {
+            this.rychlost = 1;
+            this.predchadzajucaRychlost = 1;
+        }
+    }
+
     public void tik() {
         if (this.koniecHry || this.pauza) {
             return;
@@ -102,9 +122,10 @@ public class HraTetris {
         if (this.pocet >= this.rychlost) {
             this.pocet = 0;
             if (!this.aktualnyTvar.posunTvar(1, 0)) {
-                this.rychlost = 4;
+                this.rychlost = this.predchadzajucaRychlost;
                 this.skore += this.vypocitajSkore(this.mriezka.odstranZaplneneRiadky());
                 this.displej.setHodnota(this.skore);
+                this.zvysRychlost();
                 this.aktualnyTvar = new Tvar(this.mriezka, this.generator, 0, 4);
                 if (!this.aktualnyTvar.getStav()) {
                     this.koniecHry = true;
@@ -127,10 +148,10 @@ public class HraTetris {
         if (this.koniecHry || this.pauza) {
             return;
         }
-        if (this.rychlost == 4) {
+        if (this.rychlost == this.predchadzajucaRychlost) {
             this.rychlost = 1;
         } else {
-            this.rychlost = 4;
+            this.rychlost = this.predchadzajucaRychlost;
         }
     }
 
