@@ -6,6 +6,9 @@ public class Mriezka {
     private Bunka[][] mriezka;
     private int[] zaplnenost;
 
+    /**
+     * Vytvori mriezku z buniek zadanej vysky a sirky
+     */
     public Mriezka(int vyska, int sirka) {
         this.mriezka = new Bunka[vyska][sirka];
         this.zaplnenost = new int[vyska];
@@ -28,26 +31,47 @@ public class Mriezka {
         }
     }
 
+    /**
+     * Vrati vysku mriezky
+     */
     public int getVyska() {
         return this.vyska;
     }
 
+    /**
+     * Vrati sirku mriezky
+     */
     public int getSirka() {
         return this.sirka;
     }
 
+    /**
+     * Vrati objekt bunky na zadanych suradniciach
+     */
     public Bunka getBunka(int riadok, int stlpec) {
         return this.mriezka[riadok][stlpec];
     }
 
+    /**
+     * Zafarbi bunku na zadanych suradniciach
+     */
     public void setBunka(int riadok, int stlpec, String farba) {
         this.mriezka[riadok][stlpec].zmenFarbu(farba);
     }
 
+    /**
+     * Zvysi (znizi) pocet obsadenych buniek v zadanom riadku
+     */
     public void zmenZaplnenostRiadku(int riadok, int zmena) {
         this.zaplnenost[riadok] += zmena;
     }
 
+    /**
+     * Od zadaneho riadku posunie riadky nad nim aby bola
+     * hracia plocha bez prazdnych riadkov
+     * Vrati velkost medzeri medzi aktualnym riadkom a najblizsim
+     * neprazdnym riadkom
+     */
     private int posunRiadok(int riadok, int rozdiel) {
         int pocet = 0;
         int najdeny = -1;
@@ -85,6 +109,12 @@ public class Mriezka {
         return riadok - najdeny;
     }
 
+    /**
+     * Upravi hraciu plochu tak aby riadky, ktore su cele zaplnene
+     * boli odstranene a posunie riadky, ktore sa nachadzaju nad nimi
+     * aby v hracej ploche neboli medzeri medzi riadkami
+     * Vrati pocet odstranenych riadkov
+     */
     public int odstranZaplneneRiadky() {
         int pocetRiadkov = 0;
         int prvy = -1;

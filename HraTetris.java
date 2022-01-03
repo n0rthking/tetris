@@ -16,6 +16,9 @@ public class HraTetris {
     private int predchadzajucaRychlost;
     private Displej displej;
 
+    /**
+     * Hlavna trieda hry Tetris
+     */
     public HraTetris() {
         this.mriezka = new Mriezka(20, 10);
         this.manazer = new Manazer();
@@ -30,11 +33,18 @@ public class HraTetris {
         this.displej = new Displej(50, 570);
     }
 
+    /**
+     * Odstartuje hru, vlozi nahodne vygenerovany tvar do hracej plochy
+     */
     public void start() {
         this.manazer.spravujObjekt(this);
         this.aktualnyTvar = new Tvar(this.mriezka, this.generator, 0, 4);
     }
 
+    /**
+     * Vymaze hraciu plochu, vynuluje skore, nastavi zaciatocnu rychlost
+     * a vlozi novy tvar do hracej plochy
+     */
     private void restartujHru() {
         for (int riadok = 0; riadok < this.mriezka.getVyska(); riadok++) {
             for (int stlpec = 0; stlpec < this.mriezka.getSirka(); stlpec++) {
@@ -51,10 +61,16 @@ public class HraTetris {
         this.aktualnyTvar = new Tvar(this.mriezka, this.generator, 0, 4);
     }
 
+    /**
+     * Pozastavenie a opatovne pokracovanie v hre
+     */
     public void aktivuj() {
         this.pauza = !this.pauza;
     }
 
+    /**
+     * Vrati skore podla poctu odstranenych riadkov
+     */
     private int vypocitajSkore(int pocetOdstranenych) {
         switch (pocetOdstranenych) {
             case 1:
@@ -69,6 +85,11 @@ public class HraTetris {
         return 0;
     }
 
+    /**
+     * Po skonceni hry vypise na terminal dostupne moznosti
+     * hranie novej hry
+     * ukoncenie hry
+     */
     private void vypisMoznosti() {
         System.out.println("vyber si moznost:");
         System.out.println("[n]ova hra");
@@ -98,6 +119,9 @@ public class HraTetris {
         }
     }
 
+    /**
+     * Zrychlovanie padania objektov podla skore
+     */
     private void zvysRychlost() {
         if (this.rychlost == 5 && this.skore >= 3000) {
             this.rychlost = 4;
@@ -114,6 +138,12 @@ public class HraTetris {
         }
     }
 
+    /**
+     * Posun aktualneho tvaru podla aktualnej rychlosti smerom nadol,
+     * ak uz nie je mozny dalsi posun odstrani zaplnene riadky,
+     * pricita skore a vygeneruje novy tvar
+     * Ak nie je mozne vlozit novy tvar ukonci hru
+     */
     public void tik() {
         if (this.koniecHry || this.pauza) {
             return;
@@ -137,6 +167,9 @@ public class HraTetris {
         }
     }
 
+    /**
+     * Otoci aktualny tvar o 90 stupnov
+     */
     public void posunHore() {
         if (this.koniecHry || this.pauza) {
             return;
@@ -144,6 +177,10 @@ public class HraTetris {
         this.aktualnyTvar.otocTvar();
     }
 
+    /**
+     * Docasne zvysi rychlost padania aktualneho tvaru,
+     * povodna rychlost sa obnovi po umiesteni tvaru
+     */
     public void posunDole() {
         if (this.koniecHry || this.pauza) {
             return;
@@ -155,6 +192,9 @@ public class HraTetris {
         }
     }
 
+    /**
+     * Posunie tvar o 1 bunku vlavo
+     */
     public void posunVlavo() {
         if (this.koniecHry || this.pauza) {
             return;
@@ -162,6 +202,9 @@ public class HraTetris {
         this.aktualnyTvar.posunTvar(0, -1);
     }
 
+    /**
+     * Posunie tvar o 1 bunku vpravo
+     */
     public void posunVpravo() {
         if (this.koniecHry || this.pauza) {
             return;

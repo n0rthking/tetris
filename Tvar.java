@@ -12,6 +12,10 @@ public class Tvar {
     private int pocSurY;
     private boolean stav;
 
+    /**
+     * Nahodne vygeneruje jeden zo siedmich moznych tvarov a vlozi
+     * ho na zadane suradnice
+     */
     public Tvar(Mriezka mriezka, Random generator, int pocSurX, int pocSurY) {
         this.obsadeneBunky = new ArrayList<>();
         this.mriezka = mriezka;
@@ -21,10 +25,16 @@ public class Tvar {
         this.stav = this.vygenerujTvar();
     }
 
+    /**
+     * Vrati false ak nebolo mozne umiestnit tvar na zadanych suradniciach
+     */
     public boolean getStav() {
         return this.stav;
     }
 
+    /**
+     * Vrati true ak sa obidve suradnice nachadzaju v rozsahu mriezky
+     */
     private boolean jeVMriezke(int surX, int surY) {
         if (surX < 0 || surX >= this.mriezka.getVyska()) {
             return false;
@@ -35,6 +45,9 @@ public class Tvar {
         return true;
     }
 
+    /**
+     * Otoci tvar o 90 stupnov, ak to nie je mozne tvar ostava nezmeneny
+     */
     public void otocTvar() {
         ArrayList<Bunka> otocene = new ArrayList<>();
 
@@ -69,6 +82,11 @@ public class Tvar {
         this.obsadeneBunky = otocene;
     }
 
+    /**
+     * Posunie tvar o zadany pocet buniek na osi x a y a vrati true,
+     * ak nie je mozne tvar posunut (bol by mimo hracej plochy alebo by zasahoval do ineho tvaru),
+     * tak vrati false
+     */
     public boolean posunTvar(int deltaX, int deltaY) {
         ArrayList<Bunka> posunute = new ArrayList<>();
 
@@ -101,6 +119,11 @@ public class Tvar {
         return true;
     }
 
+    /**
+     * Ak je bunka volna zafarbi ju na farbu aktualneho tvaru,
+     * suradnice v parametre su posunute o pociatocne suradnice
+     * aktualneho tvaru
+     */
     private boolean zafarbiBunku(int posunX, int posunY) {
         if (this.mriezka.getBunka(this.pocSurX + posunX, this.pocSurY + posunY).jeObsadena()) {
             return false;
@@ -110,6 +133,9 @@ public class Tvar {
         return true;
     }
 
+    /**
+     * Vygeneruje tvar I
+     */
     private boolean nastavTvar1() {
         this.farba = "cyan";
         for (int i = 0; i < 4; i++) {
@@ -120,6 +146,9 @@ public class Tvar {
         return true;
     }
 
+    /**
+     * Vygeneruje tvar T
+     */
     private boolean nastavTvar2() {
         this.farba = "magenta";
         for (int i = 0; i < 3; i++) {
@@ -130,6 +159,9 @@ public class Tvar {
         return this.zafarbiBunku(1, 1);
     }
 
+    /**
+     * Vygeneruje tvar O
+     */
     private boolean nastavTvar3() {
         this.farba = "yellow";
         for (int i = 0; i < 2; i++) {
@@ -143,6 +175,9 @@ public class Tvar {
         return true;
     }
 
+    /**
+     * Vygeneruje tvar L
+     */
     private boolean nastavTvar4() {
         this.farba = "orange";
         for (int i = 0; i < 3; i++) {
@@ -153,6 +188,9 @@ public class Tvar {
         return this.zafarbiBunku(2, 1);
     }
 
+    /**
+     * Vygeneruje tvar J
+     */
     private boolean nastavTvar5() {
         this.farba = "blue";
         for (int i = 0; i < 3; i++) {
@@ -163,6 +201,9 @@ public class Tvar {
         return this.zafarbiBunku(2, 0);
     }
 
+    /**
+     * Vygeneruje tvar S
+     */
     private boolean nastavTvar6() {
         this.farba = "green";
         for (int i = 0; i < 2; i++) {
@@ -178,6 +219,9 @@ public class Tvar {
         return true;
     }
 
+    /**
+     * Vygeneruje tvar Z
+     */
     private boolean nastavTvar7() {
         this.farba = "red";
         for (int i = 0; i < 2; i++) {
@@ -193,6 +237,9 @@ public class Tvar {
         return true;
     }
 
+    /**
+     * Nahodne vygeneruje tvar a vlozi ho do hracej plochy
+     */
     private boolean vygenerujTvar() {
         switch (this.generator.nextInt(7)) {
             case 0:
