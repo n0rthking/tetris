@@ -7,7 +7,7 @@ public class Cifra {
      * Vytvori jednu cifru displeja na zadanych suradniciach a nastavi na nej cislo 0
      */
     public Cifra(int polohaX, int polohaY) {
-        this.cifra = new Obrazok("C:/Users/david/Downloads/cisla/0.png");
+        this.cifra = new Obrazok("cisla/0.png");
         this.cifra.zmenPolohu(polohaX, polohaY);
         this.cifra.zobraz();
     }
@@ -17,9 +17,9 @@ public class Cifra {
      */
     public void setHodnota(int cislo) {
         if (cislo >= 0 && cislo <= 9) {
-            this.cifra.zmenObrazok("C:/Users/david/Downloads/cisla/" + cislo + ".png");
+            this.cifra.zmenObrazok("cisla/" + cislo + ".png");
         } else {
-            this.cifra.zmenObrazok("C:/Users/david/Downloads/cisla/0.png");
+            this.cifra.zmenObrazok("cisla/0.png");
         }
     }
 }
